@@ -31,7 +31,7 @@ class Disk implements DeployInterface
         $this->sitemapStorage = $sitemapStorage;
     }
 
-    public function storeSet($setIndex, string $set): StoredSet
+    public function storeSet($setIndex, string $set)
     {
         $path = "sitemap-$setIndex.xml";
 
@@ -43,14 +43,14 @@ class Disk implements DeployInterface
         );
     }
 
-    public function storeIndex(string $index): string
+    public function storeIndex(string $index)
     {
         $this->indexStorage->put('sitemap.xml', $index);
 
         return $this->indexStorage->url('sitemap.xml');
     }
 
-    public function getIndex(): mixed
+    public function getIndex()
     {
         if (!$this->indexStorage->exists('sitemap.xml')) {
             // build the index for the first time
