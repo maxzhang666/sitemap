@@ -16,12 +16,12 @@ use Laminas\Diactoros\Uri;
 
 interface DeployInterface
 {
-    public function storeSet($setIndex, string $set): StoredSet;
+    public function storeSet($setIndex, string $set);
 
-    public function storeIndex(string $index): string;
+    public function storeIndex(string $index);
 
     /**
      * @return string|Uri|null
      */
-    public function getIndex(): mixed;
+    public function getIndex();
 }

@@ -60,7 +60,7 @@ class Memory implements DeployInterface
         return $this->getIndex();
     }
 
-    public function getIndex(): mixed
+    public function getIndex()
     {
         return new Uri($this->urlGenerator->to('forum')->route('fof-sitemap-live', [
             'id' => 'index',
