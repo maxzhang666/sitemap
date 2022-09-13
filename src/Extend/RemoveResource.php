@@ -18,6 +18,8 @@ use Illuminate\Contracts\Container\Container;
 
 class RemoveResource implements ExtenderInterface
 {
+    private $resource;
+
     /**
      * Remove a resource from the sitemap. Specify the ::class of the resource.
      * Resource must extend FoF\Sitemap\Resources\Resource.
@@ -25,8 +27,9 @@ class RemoveResource implements ExtenderInterface
      * @param string $resource
      */
     public function __construct(
-        private string $resource
+        string $resource
     ) {
+        $this->resource = $resource;
     }
 
     public function extend(Container $container, Extension $extension = null)

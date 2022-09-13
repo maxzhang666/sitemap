@@ -16,9 +16,15 @@ use Carbon\Carbon;
 
 class StoredSet
 {
+    public $url;
+    public $lastModifiedAt;
+
     public function __construct(
-        public string $url,
-        public Carbon $lastModifiedAt
-    ) {
+        string $url,
+        Carbon $lastModifiedAt
+    )
+    {
+        $this->lastModifiedAt = $lastModifiedAt;
+        $this->url            = $url;
     }
 }

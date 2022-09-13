@@ -23,10 +23,10 @@ use Illuminate\Database\Eloquent\Builder;
 abstract class Resource
 {
     // Cached copies of the generator and slug manager for performance
-    protected static ?UrlGenerator $generator = null;
-    protected static ?SlugManager $slugManager = null;
-    protected static ?SettingsRepositoryInterface $settings = null;
-    protected static ?ExtensionManager $extensionManager = null;
+    protected static $generator = null;
+    protected static $slugManager = null;
+    protected static $settings = null;
+    protected static $extensionManager = null;
 
     public static function setUrlGenerator(UrlGenerator $generator)
     {

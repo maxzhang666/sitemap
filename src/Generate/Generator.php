@@ -28,13 +28,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Generator
 {
+    protected $deploy;
+    protected $resources;
+
     public function __construct(
-        protected DeployInterface $deploy,
-        protected array $resources
+        DeployInterface $deploy,
+        array $resources
     ) {
+        $this->resources = $resources;
+        $this->deploy    = $deploy;
     }
 
-    public function generate(OutputInterface $output = null): ?string
+    public function generate(OutputInterface $output = null): string
     {
         if (!$output) {
             $output = new NullOutput();

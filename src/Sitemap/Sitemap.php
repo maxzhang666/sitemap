@@ -17,10 +17,13 @@ use Illuminate\View\Factory;
 
 class Sitemap
 {
+    public $sets;
+
     public function __construct(
-        public array $sets,
+        array $sets,
         Carbon $lastModified
     ) {
+        $this->sets = $sets;
     }
 
     public function toXML(): string

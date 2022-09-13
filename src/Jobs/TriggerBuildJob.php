@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class TriggerBuildJob extends AbstractJob
 {
-    public function handle(): void
+    public function handle()
     {
         /** @var Container $container */
         $container = resolve(Container::class);

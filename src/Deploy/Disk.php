@@ -19,13 +19,19 @@ use Laminas\Diactoros\Uri;
 
 class Disk implements DeployInterface
 {
+    public $sitemapStorage;
+    public $indexStorage;
+
     public function __construct(
-        public Cloud $sitemapStorage,
-        public Cloud $indexStorage
-    ) {
+        Cloud $sitemapStorage,
+        Cloud $indexStorage
+    )
+    {
+        $this->indexStorage   = $indexStorage;
+        $this->sitemapStorage = $sitemapStorage;
     }
 
-    public function storeSet($setIndex, string $set): ?StoredSet
+    public function storeSet($setIndex, string $set): StoredSet
     {
         $path = "sitemap-$setIndex.xml";
 
@@ -37,14 +43,14 @@ class Disk implements DeployInterface
         );
     }
 
-    public function storeIndex(string $index): ?string
+    public function storeIndex(string $index): string
     {
         $this->indexStorage->put('sitemap.xml', $index);
 
         return $this->indexStorage->url('sitemap.xml');
     }
 
-    public function getIndex(): ?Uri
+    public function getIndex(): mixed
     {
         if (!$this->indexStorage->exists('sitemap.xml')) {
             // build the index for the first time
@@ -53,8 +59,6 @@ class Disk implements DeployInterface
 
         $uri = $this->indexStorage->url('sitemap.xml');
 
-        return $uri
-            ? new Uri($uri)
-            : null;
+        return $uri ? new Uri($uri) : null;
     }
 }

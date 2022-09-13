@@ -18,14 +18,17 @@ use Laminas\Diactoros\Uri;
 
 class Memory implements DeployInterface
 {
-    protected array $cache = [];
+    public $urlGenerator;
+    protected $cache = [];
 
     public function __construct(
-        public UrlGenerator $urlGenerator
-    ) {
+        UrlGenerator $urlGenerator
+    )
+    {
+        $this->urlGenerator = $urlGenerator;
     }
 
-    public function storeSet($setIndex, string $set): ?StoredSet
+    public function storeSet($setIndex, string $set): StoredSet
     {
         $this->cache[$setIndex] = $set;
 
@@ -45,19 +48,19 @@ class Memory implements DeployInterface
      *
      * @return string|null
      */
-    public function getSet($setIndex): ?string
+    public function getSet($setIndex): mixed
     {
         return $this->cache[$setIndex] ?? null;
     }
 
-    public function storeIndex(string $index): ?string
+    public function storeIndex(string $index): string
     {
         $this->cache['index'] = $index;
 
         return $this->getIndex();
     }
 
-    public function getIndex(): ?Uri
+    public function getIndex(): Uri
     {
         return new Uri($this->urlGenerator->to('forum')->route('fof-sitemap-live', [
             'id' => 'index',

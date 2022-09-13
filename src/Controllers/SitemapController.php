@@ -21,9 +21,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class SitemapController implements RequestHandlerInterface
 {
+    protected $deploy;
+
     public function __construct(
-        protected DeployInterface $deploy
+        DeployInterface $deploy
     ) {
+        $this->deploy = $deploy;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

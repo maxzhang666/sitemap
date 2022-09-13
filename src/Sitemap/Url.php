@@ -17,12 +17,22 @@ use Illuminate\View\Factory;
 
 class Url
 {
+    public $location;
+    public $lastModified = null;
+    public $changeFrequency = null;
+    public $priority = null;
+
     public function __construct(
-        public string $location,
-        public ?Carbon $lastModified = null,
-        public ?string $changeFrequency = null,
-        public ?float $priority = null
-    ) {
+        string $location,
+        Carbon $lastModified = null,
+        string $changeFrequency = null,
+        float  $priority = null
+    )
+    {
+        $this->priority        = $priority;
+        $this->changeFrequency = $changeFrequency;
+        $this->lastModified    = $lastModified;
+        $this->location        = $location;
     }
 
     public function toXML(Factory $view): string

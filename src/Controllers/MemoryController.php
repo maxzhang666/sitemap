@@ -24,10 +24,15 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class MemoryController implements RequestHandlerInterface
 {
+    protected $deploy;
+    protected $generator;
+
     public function __construct(
-        protected DeployInterface $deploy,
-        protected Generator $generator
+        DeployInterface $deploy,
+        Generator $generator
     ) {
+        $this->generator = $generator;
+        $this->deploy    = $deploy;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

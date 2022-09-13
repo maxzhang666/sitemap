@@ -22,8 +22,13 @@ use Illuminate\Support\Arr;
 
 class SettingsListener
 {
-    public function __construct(protected SettingsRepositoryInterface $settings, protected Factory $filesystem)
+    protected $settings;
+    protected $filesystem;
+
+    public function __construct(SettingsRepositoryInterface $settings, Factory $filesystem)
     {
+        $this->filesystem = $filesystem;
+        $this->settings   = $settings;
     }
 
     public function subscribe(Dispatcher $events)
@@ -32,7 +37,7 @@ class SettingsListener
         $events->listen(Saved::class, [$this, 'whenSaved']);
     }
 
-    public function whenSaving(Saving $event): void
+    public function whenSaving(Saving $event)
     {
         $mode = Arr::get($event->settings, 'fof-sitemap.mode');
         $setting = $this->settings->get('fof-sitemap.mode');
@@ -42,7 +47,7 @@ class SettingsListener
         }
     }
 
-    public function whenSaved(Saved $event): void
+    public function whenSaved(Saved $event)
     {
         $mode = Arr::get($event->settings, 'fof-sitemap.mode');
 
@@ -51,7 +56,7 @@ class SettingsListener
         }
     }
 
-    private function removeCachedSitemaps(): void
+    private function removeCachedSitemaps()
     {
         $sitemapsDir = $this->filesystem->disk('flarum-sitemaps');
 
@@ -62,7 +67,7 @@ class SettingsListener
         }
     }
 
-    private function createCachedSitemaps(): void
+    private function createCachedSitemaps()
     {
         resolve('flarum.queue.connection')->push(new TriggerBuildJob());
     }
