@@ -48,12 +48,12 @@ class Memory implements DeployInterface
      *
      * @return string|null
      */
-    public function getSet($setIndex): mixed
+    public function getSet($setIndex)
     {
         return $this->cache[$setIndex] ?? null;
     }
 
-    public function storeIndex(string $index): string
+    public function storeIndex(string $index)
     {
         $this->cache['index'] = $index;
 
